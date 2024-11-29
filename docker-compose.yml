@@ -1,0 +1,15 @@
+version: '3'
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    command: uvicorn api_dummy_model:app --host 0.0.0.0 --reload
+
+  frontend:
+    build: .
+    ports:
+      - "8501:8501"
+    command: streamlit run app.py --server.address 0.0.0.0
+    depends_on:
+      - api

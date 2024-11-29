@@ -1,12 +1,18 @@
-FROM python:3.10-slim-bookworm
+# Start with Python 3.10 slim image
+FROM python:3.10-slim
 
-# Copy and install requirements
-COPY requirements.txt requirements.txt
+# Set working directory in the container
+WORKDIR /app
 
-RUN pip install -U pip cython wheel
+# Copy requirements file
+COPY requirements.txt .
+
+# Install dependencies
 RUN pip install -r requirements.txt
 
-# Copy the main folder for the API
-COPY api api
+# Copy all files from current directory to container
+COPY . .
 
-CMD uvicorn api.fast:app --host 0.0.0.0 --port $PORT
+# Expose ports needed for FastAPI and Streamlit
+EXPOSE 8000
+EXPOSE 8501
