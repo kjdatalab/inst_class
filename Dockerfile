@@ -5,10 +5,10 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Copy requirements file
-COPY requirements.txt .
+COPY requirements_customCNN.txt .
 
 # Install dependencies
-RUN pip install -r requirements.txt
+RUN pip install -r requirements_customCNN.txt
 
 # Copy all files from current directory to container
 COPY . .

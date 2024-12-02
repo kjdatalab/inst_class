@@ -1,26 +1,27 @@
-# app/main.py
-from fastapi import FastAPI, UploadFile
-from fastapi.middleware.cors import CORSMiddleware
+import streamlit as st
+import requests
+from io import BytesIO
 
-app = FastAPI()
+st.title("Piano Detector")
+st.write("Upload an audio file to detect if it contains piano")
 
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# File uploader
+audio_file = st.file_uploader("Choose an audio file", type=['wav'])
 
-@app.post("/predict")
-async def predict(file: UploadFile):
-    # For now, return dummy prediction
-    return {
-        "filename": file.filename,
-        "prediction": "piano",
-        "confidence": 0.95
-    }
+if audio_file is not None:
+    # Display audio file
+    st.audio(audio_file)
 
-@app.get("/health")
-async def health_check():
-    return {"status": "ok"}
+    # Make prediction when button is clicked
+    if st.button("Detect Piano"):
+        # Prepare the file for the API request
+        files = {"file": ("audio.wav", audio_file, "audio/wav")}
+
+        # Make API request
+        response = requests.post("http://api:8000/predict", files=files)
+        result = response.json()
+
+        # Display results
+        st.write("### Results")
+        st.write(f"Contains piano: {'Yes' if result['contains_piano'] else 'No'}")
+        st.write(f"Confidence: {result['confidence']:.1%}")
