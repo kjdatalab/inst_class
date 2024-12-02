@@ -1,0 +1,5 @@
+# For my dummy 50/50 model
+fastapi==0.68.0
+uvicorn==0.15.0
+python-multipart
+streamlit==1.24.0
