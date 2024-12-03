@@ -4,6 +4,8 @@ import tensorflow as tf
 import librosa
 import numpy as np
 from sklearn.preprocessing import MultiLabelBinarizer
+import os
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
@@ -12,7 +14,7 @@ model_loader = ModelLoader('./model/CNN_model1_sliced2.keras')
 model = model_loader.load_model()
 
 @app.post("/predict")
-def predict():
+async def predict(file: UploadFile = File(...)):
     """
     This endpoint handles the actual piano detection. We keep it because it's our main
     functionality - it receives audio files and returns predictions using our model.
@@ -24,9 +26,13 @@ def predict():
     mlb.fit([unique_instruments])  # Fit the binarizer
 
     try:
-        new_file_path = 'raw_data/test_data/3333.wav'
-        predicted_instruments = predict_instruments(new_file_path, model, mlb)
-        print(f"Predicted instruments for '{new_file_path}': {predicted_instruments}")
+        #new_file_path = 'raw_data/test_data/3333.wav'
+        audio_data = await file.read()
+        temp_file = f"temp_{file.filename}"
+        with open(temp_file, "wb") as f:
+            f.write(audio_data)
+        predicted_instruments = predict_instruments(temp_file, model, mlb)
+        print(f"Predicted instruments for '{temp_file}': {predicted_instruments}")
 
         INSTRUMENT_MAP = {
         1: 'Piano',
@@ -39,8 +45,12 @@ def predict():
         }
 
         instrument_names = [INSTRUMENT_MAP.get(i, "Unknown") for i in predicted_instruments[0]]
-        print(f"Predicted instruments for '{new_file_path}': {instrument_names}")
-        return instrument_names
+        print(f"Predicted instruments for '{temp_file}': {instrument_names}")
+
+        os.remove(temp_file)
+
+        return JSONResponse(content={'predictions':instrument_names})
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

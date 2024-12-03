@@ -1,3 +1,6 @@
 raw_data/
 .DS_Store
 __pycache__/
+instruments.json
+instruments.json:Zone.Identifier
+temp_audio.wav
