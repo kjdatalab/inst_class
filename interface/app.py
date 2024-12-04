@@ -60,8 +60,8 @@ def display_predictions(predicted_instruments, instrument_data, tempo, rotate):
                     <style>
                         @keyframes rotate {{
                             0% {{ transform: rotateY(0deg); }}
-                            25% {{ transform: rotateY(10deg); }}
-                            75% {{ transform: rotateY(-10deg); }}
+                            25% {{ transform: rotateY(30deg); }}
+                            75% {{ transform: rotateY(-30deg); }}
                             100% {{ transform: rotateY(0deg); }}
                         }}
                         .flip-card {{
