@@ -6,7 +6,9 @@ import librosa
 import numpy as np
 from pathlib import Path
 
-API_URL = "http://localhost:8000/predict"
+# API_URL = "http://localhost:8000/predict"
+API_URL = "https://int-class-719648460452.europe-west2.run.app/predict"
+
 
 # Convert image file to base64 for display
 def convert_image_to_base64(file_path):
