@@ -178,7 +178,7 @@ def main():
 
     st.markdown(
     """
-    <h1 style="text-align: center;">Orchestrate</h1>
+    <h1 style="text-align: center;">OrchestrAIte</h1>
     """,
     unsafe_allow_html=True
     )
