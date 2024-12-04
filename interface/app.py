@@ -65,7 +65,7 @@ def display_predictions(predicted_instruments, instrument_data, tempo, rotate):
                         .flip-card {{
                             background-color: transparent;
                             width: 238px;
-                            height: 238px;
+                            height: 438px;
                             perspective: 1000px;
                             margin: 25px auto;
                             border-radius: 10px;

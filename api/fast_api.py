@@ -74,21 +74,6 @@ async def root():
     print(model)
     return {"message": "Instrument Classifier API is running"}
 
-#Function to predict instruments from a new .wav file
-# def predict_instruments(file_path, model, mlb):
-#     # Extract Mel-spectrogram from the input file
-#     mel_spec = extract_mel_spectrogram(file_path)
-#     # Pad or reshape the spectrogram to match the model input shape
-#     mel_spec = np.expand_dims(mel_spec, axis=-1)  # Add channel dimension
-#     mel_spec = tf.keras.preprocessing.sequence.pad_sequences([mel_spec],
-#                                                              padding="post",
-#                                                              dtype="float32",
-#                                                              value=0)
-#     # Predict the instruments
-#     prediction = model.predict(mel_spec)
-#     # Get the instrument labels
-#     predicted_instruments = mlb.inverse_transform((prediction > 0.5).astype(int))  # Threshold at 0.5 for multi-label
-#     return predicted_instruments
 
 
 def predict_instruments(file_path, model, mlb, thresh=0.5):
