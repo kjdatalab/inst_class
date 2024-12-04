@@ -198,7 +198,7 @@ def main():
 
     st.markdown('<div class="custom-text">Envoke your sense of musical virtuosity and mastery</div>', unsafe_allow_html=True)
 
-    instrument_data = load_instruments("instruments.json")
+    instrument_data = load_instruments("interface/instruments.json")
 
     # Initialize session state variables
     if 'is_playing' not in st.session_state:
