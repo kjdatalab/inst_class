@@ -127,7 +127,7 @@ def display_predictions(predicted_instruments, instrument_data, tempo, rotate):
                     </div>
                     <div class="instrument-info" style="font-size: 30px; font-weight: bold; text-align: center; line-height: 1.5; margin-bottom: 30px;">
                         {instrument_name}<br>
-                    <span style="font-size: 24px; font-weight: normal;">(prob: {probability:.1f}%)</span>
+                    <span style="font-size: 24px; font-weight: normal;">(prob: {int(probability)}%)</span>
                     </div>
                     """,
                     unsafe_allow_html=True,
